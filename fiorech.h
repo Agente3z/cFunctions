@@ -32,6 +32,23 @@ float randFloat(float min, float max, int nDecimals){
 	return nCas;
 }
 
+//swap two int
+void swapInt(int *a, int *b){
+	int t=*a;
+	*a=*b;
+	*b=t;
+}
+
+//shuffles an int array
+void shuffleIntArray(int array[], int dim, int depht){
+	int i;
+	//in main
+	//srand(time(NULL));
+	for(i=0;i<depht;i++){
+		swapInt(&array[rand()%dim], &array[rand()%dim]);
+	}
+}
+
 //round float
 float roundFloat(float n,int dec){
 	int i,fattore=1;
@@ -183,3 +200,78 @@ void printFloatArray(float array[], int dim){
 	
 }
 
+//finds max in an int array
+int maxIntArray(int array[], int dim){
+	int max,i;
+		
+	max=array[0];
+	for(i=0;i<dim;i++){
+		if(array[i]>max){
+			max=array[i];
+		}
+	}
+	
+	return max;
+}
+
+//finds min in an int array
+int minIntArray(int array[], int dim){
+	int min,i;
+		
+	min=array[0];
+	for(i=0;i<dim;i++){
+		if(array[i]>min){
+			min=array[i];
+		}
+	}
+	
+	return min;
+}
+
+//in place selection sort algorithm for int array
+void selectionSort(int array[], int dim){
+	int i,max,min,k,c,pos;
+	
+	for(i=0,max=maxIntArray(array,dim);i<dim;i++){
+		min=max+1;
+		for(k=i;k<dim;k++){
+			if(array[k]<min){
+				min=array[k];
+				pos=k;
+			}
+		}
+		swapInt(&array[i], &array[pos]);
+	}
+}
+
+//bubble sort algorithm for int array
+void bubbleSort(int array[], int dim){
+	int i,flag;
+	
+	for(i=0; i<dim-i-1; i++){
+		flag=1;
+		if(array[i] > array[i+1]){
+			swapInt(&array[i], &array[i+1]);
+			flag=0;
+		}
+		if(flag==1){
+			break;
+		}
+	}
+}
+
+//insertion sort algorithm for int array
+void insertionSort(int array[], int dim){
+	int i,k,j,c;
+	
+	for(i=1,k=0;i<dim;i++,k=i-1){
+		c = array[i];
+		while(c<array[k] && k>=0){
+			k--;
+		}k++;
+		for(j=i;j>k;j--){
+			array[j] = array[j-1];
+		}
+		array[k] = c;
+	}
+}
